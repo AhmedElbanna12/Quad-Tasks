@@ -14,6 +14,15 @@ CREATE TABLE Tasks (
     FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
 
+
+-- Insert Sample Data
+INSERT INTO Users (Name) VALUES ('Ahmed'), ('Ali');
+
+INSERT INTO Tasks (Title, UserId, IsCompleted)
+VALUES ('Task 1', 1, 0), ('Task 2', 2, 1);
+
+
+
 --filter
 SELECT * FROM Tasks WHERE IsCompleted = 1;
 
