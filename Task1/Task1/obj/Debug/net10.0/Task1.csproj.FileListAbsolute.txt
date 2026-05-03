@@ -1,0 +1,14 @@
+E:\projects\Quad\Task1\Task1\bin\Debug\net10.0\Task1.exe
+E:\projects\Quad\Task1\Task1\bin\Debug\net10.0\Task1.deps.json
+E:\projects\Quad\Task1\Task1\bin\Debug\net10.0\Task1.runtimeconfig.json
+E:\projects\Quad\Task1\Task1\bin\Debug\net10.0\Task1.dll
+E:\projects\Quad\Task1\Task1\bin\Debug\net10.0\Task1.pdb
+E:\projects\Quad\Task1\Task1\obj\Debug\net10.0\Task1.GeneratedMSBuildEditorConfig.editorconfig
+E:\projects\Quad\Task1\Task1\obj\Debug\net10.0\Task1.AssemblyInfoInputs.cache
+E:\projects\Quad\Task1\Task1\obj\Debug\net10.0\Task1.AssemblyInfo.cs
+E:\projects\Quad\Task1\Task1\obj\Debug\net10.0\Task1.csproj.CoreCompileInputs.cache
+E:\projects\Quad\Task1\Task1\obj\Debug\net10.0\Task1.dll
+E:\projects\Quad\Task1\Task1\obj\Debug\net10.0\refint\Task1.dll
+E:\projects\Quad\Task1\Task1\obj\Debug\net10.0\Task1.pdb
+E:\projects\Quad\Task1\Task1\obj\Debug\net10.0\Task1.genruntimeconfig.cache
+E:\projects\Quad\Task1\Task1\obj\Debug\net10.0\ref\Task1.dll
