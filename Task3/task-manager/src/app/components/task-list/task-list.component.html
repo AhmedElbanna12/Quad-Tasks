@@ -1,0 +1,27 @@
+<h2>Tasks</h2>
+
+<a routerLink="/create">+ Create Task</a>
+
+<div *ngIf="isLoading">Loading...</div>
+
+<ul *ngIf="!isLoading && tasks.length > 0">
+  <li *ngFor="let task of tasks">
+
+    <div>
+      <b>{{ task.title }}</b>
+      <div>{{ task.description }}</div>
+      <small>{{ task.userName }}</small>
+    </div>
+
+    <div>
+      <a [routerLink]="['/edit', task.id]">Edit</a>
+      <button (click)="deleteTask(task.id)">Delete</button>
+    </div>
+
+  </li>
+</ul>
+
+<!-- 👇 مهم جدًا -->
+<div *ngIf="!isLoading && tasks.length === 0">
+  No tasks found
+</div>

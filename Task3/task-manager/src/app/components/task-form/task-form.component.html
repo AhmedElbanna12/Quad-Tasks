@@ -1,0 +1,22 @@
+<h2>{{ isEdit ? 'Edit Task' : 'Create Task' }}</h2>
+
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+
+  <input formControlName="title" placeholder="Title" />
+  <br />
+
+  <textarea formControlName="description" placeholder="Description"></textarea>
+  <br />
+
+  <select formControlName="status">
+    <option [value]="1">To Do</option>
+    <option [value]="2">In Progress</option>
+    <option [value]="3">Done</option>
+  </select>
+  <br />
+
+  <button type="submit" [disabled]="isLoading">
+    {{ isEdit ? 'Update' : 'Create' }}
+  </button>
+
+</form>

@@ -19,7 +19,25 @@ namespace Task2
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
+
+
+            // 👇 Add CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularApp",
+                    policy =>
+                    {
+                        policy
+                            .WithOrigins("http://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
+
             var app = builder.Build();
+            app.UseCors("AllowAngularApp");
 
             if (app.Environment.IsDevelopment())
             {
