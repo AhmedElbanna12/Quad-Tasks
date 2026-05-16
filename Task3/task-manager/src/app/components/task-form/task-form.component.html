@@ -1,22 +1,41 @@
-<h2>{{ isEdit ? 'Edit Task' : 'Create Task' }}</h2>
+<div class="form-card">
+  <h3>{{ isEdit ? 'Edit Task' : 'Create New Task' }}</h3>
 
-<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label>Title</label>
+      <input formControlName="title" placeholder="Task title..." />
+      <div class="error" *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+        Title is required
+      </div>
+    </div>
 
-  <input formControlName="title" placeholder="Title" />
-  <br />
+    <div class="field">
+      <label>Description</label>
+      <textarea formControlName="description" placeholder="Add a description..."></textarea>
+    </div>
 
-  <textarea formControlName="description" placeholder="Description"></textarea>
-  <br />
+    <div class="field">
+      <label>Status</label>
+      <!-- بعد (الكود الجديد) -->
+<div class="status-options">
+  <div *ngFor="let s of statuses"
+       class="status-opt"
+       [class.selected-todo]="taskForm.get('status')?.value == s.value && s.key === 'todo'"
+       [class.selected-prog]="taskForm.get('status')?.value == s.value && s.key === 'prog'"
+       [class.selected-done]="taskForm.get('status')?.value == s.value && s.key === 'done'"
+       (click)="taskForm.get('status')?.setValue(s.value)">
+    <span class="dot" [style.background]="s.color"></span>
+    {{ s.label }}
+  </div>
+</div>
+    </div>
 
-  <select formControlName="status">
-    <option [value]="1">To Do</option>
-    <option [value]="2">In Progress</option>
-    <option [value]="3">Done</option>
-  </select>
-  <br />
-
-  <button type="submit" [disabled]="isLoading">
-    {{ isEdit ? 'Update' : 'Create' }}
-  </button>
-
-</form>
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" routerLink="/tasks">Cancel</button>
+      <button type="submit" class="btn-submit" [disabled]="isLoading">
+        {{ isLoading ? 'Saving...' : (isEdit ? 'Update Task' : 'Create Task') }}
+      </button>
+    </div>
+  </form>
+</div>

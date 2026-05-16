@@ -5,3 +5,12 @@ bin/
 obj/
 *.user
 *.log
+
+# publish / server files
+login server.txt
+login server.txt.log
+quad.runasp.net-WebDeploy.publishSettings
+
+
+*.publishSettings
+login server*.txt

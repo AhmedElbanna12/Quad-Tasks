@@ -31,7 +31,7 @@ namespace Task2.Controllers
                     {
                         Id = t.Id,
                         Title = t.Title,
-                        Status = t.Status.ToString()
+                        Status = (int)t.Status
                     }).ToList()
                 })
                 .ToList();

@@ -3,5 +3,7 @@ export interface Task {
   title: string;
   description: string;
   userName: string;
+  status: number;  
+
 }
 

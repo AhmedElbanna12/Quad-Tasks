@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Net.NetworkInformation;
 using Task2.Context;
 using Task2.Dtos;
 using Task2.Models;
@@ -18,7 +17,7 @@ namespace Task2.Controllers
             _context = context;
         }
 
-        // ================= GET =================
+        // ================= GET ALL =================
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -29,7 +28,51 @@ namespace Task2.Controllers
                     Id = t.Id,
                     Title = t.Title,
                     Description = t.Description,
-                    UserName = t.User.Name
+                    UserName = t.User.Name,
+                    Status = (int)t.Status
+                })
+                .ToListAsync();
+
+            return Ok(tasks);
+        }
+
+        // ================= GET BY ID =================
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var task = await _context.Tasks
+                .Include(t => t.User)
+                .Where(t => t.Id == id)
+                .Select(t => new TaskResponseDto
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    Description = t.Description,
+                    UserName = t.User.Name,
+                    Status = (int)t.Status
+                })
+                .FirstOrDefaultAsync();
+
+            if (task == null)
+                return NotFound("Task not found");
+
+            return Ok(task);
+        }
+
+        // ================= GET BY USER =================
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetByUser(int userId)
+        {
+            var tasks = await _context.Tasks
+                .Where(t => t.UserId == userId)
+                .Include(t => t.User)
+                .Select(t => new TaskResponseDto
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    Description = t.Description,
+                    UserName = t.User.Name,
+                    Status = (int)t.Status
                 })
                 .ToListAsync();
 
@@ -44,7 +87,7 @@ namespace Task2.Controllers
             {
                 Title = dto.Title,
                 Description = dto.Description,
-                Status = dto.Status,  
+                Status = (TaskItemStatus)dto.Status,
                 UserId = dto.UserId
             };
 
@@ -59,7 +102,8 @@ namespace Task2.Controllers
                     Id = t.Id,
                     Title = t.Title,
                     Description = t.Description,
-                    UserName = t.User.Name
+                    UserName = t.User.Name,
+                    Status = (int)t.Status
                 })
                 .FirstOrDefaultAsync();
 
@@ -77,7 +121,7 @@ namespace Task2.Controllers
 
             task.Title = dto.Title;
             task.Description = dto.Description;
-            task.Status = dto.Status; 
+            task.Status = (TaskItemStatus)dto.Status;
             task.UserId = dto.UserId;
 
             await _context.SaveChangesAsync();
@@ -90,36 +134,15 @@ namespace Task2.Controllers
                     Id = t.Id,
                     Title = t.Title,
                     Description = t.Description,
-                    UserName = t.User.Name
+                    UserName = t.User.Name,
+                    Status = (int)t.Status
                 })
                 .FirstOrDefaultAsync();
 
             return Ok(result);
         }
 
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var task = await _context.Tasks
-                .Include(t => t.User)
-                .Where(t => t.Id == id)
-                .Select(t => new TaskResponseDto
-                {
-                    Id = t.Id,
-                    Title = t.Title,
-                    Description = t.Description,
-                    UserName = t.User.Name
-                })
-                .FirstOrDefaultAsync();
-
-            if (task == null)
-                return NotFound("Task not found");
-
-            return Ok(task);
-        }
-
-
+        // ================= DELETE =================
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
@@ -131,26 +154,7 @@ namespace Task2.Controllers
             _context.Tasks.Remove(task);
             await _context.SaveChangesAsync();
 
-            return NoContent(); // أفضل من Ok
-        }
-
-
-        [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetByUser(int userId)
-        {
-            var tasks = await _context.Tasks
-                .Where(t => t.UserId == userId)
-                .Include(t => t.User)
-                .Select(t => new TaskResponseDto
-                {
-                    Id = t.Id,
-                    Title = t.Title,
-                    Description = t.Description,
-                    UserName = t.User.Name
-                })
-                .ToListAsync();
-
-            return Ok(tasks);
+            return NoContent();
         }
     }
 }

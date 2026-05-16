@@ -19,8 +19,8 @@ namespace Task2.Models
 
     public enum TaskItemStatus
     {
-        Pending,
-        InProgress,
-        Done
+        Pending = 0,
+        InProgress = 1,
+        Completed = 2
     }
 }

@@ -4,10 +4,11 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'tasks', pathMatch: 'full' },
-
-  { path: 'tasks', component: TaskListComponent },
-
+  { 
+    path: 'tasks', 
+    component: TaskListComponent,
+    runGuardsAndResolvers: 'always'   // ← المهم
+  },
   { path: 'create', component: TaskFormComponent },
-
-  { path: 'edit/:id', component: TaskFormComponent }
+  { path: 'edit/:id', component: TaskFormComponent, runGuardsAndResolvers: 'always' }
 ];

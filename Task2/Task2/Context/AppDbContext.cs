@@ -27,11 +27,7 @@ namespace Task2.Context
                 new User { Id = 3, Name = "Mona" }
                 );
 
-            modelBuilder.Entity<TaskItem>()
-       .Property(t => t.Status)
-       .HasConversion<string>();
+
         }
-
-
     }
 }
